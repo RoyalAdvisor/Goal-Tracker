@@ -1,0 +1,50 @@
+<div class="todo-container">
+  <div class="input-container">
+    <h3 class="input-header poppins-bold">
+      What would you like to accomplish today?
+    </h3>
+    <div class="input-actions">
+      <input
+        id="new-todo"
+        #todoDescription
+        class="poppins-bold"
+        placeholder="Type a goal you'd like to accomplish & hit enter"
+        (keyup.enter)="
+          addNewTodo(todoDescription.value); todoDescription.value = ''
+        "
+      />
+      <button
+        type="button"
+        class="add-button poppins-bold"
+        (click)="addNewTodo(todoDescription.value); todoDescription.value = ''"
+      >
+        Create Goal
+      </button>
+    </div>
+  </div>
+  <div class="filters">
+    <h4 class="poppins-bold filter-heading">Filters:</h4>
+    <div class="filter-buttons">
+      <button
+        *ngFor="let filter of filters"
+        type="button"
+        class="poppins-bold"
+        (click)="filterTodos(filter)"
+      >
+        {{ filter }}
+      </button>
+    </div>
+  </div>
+  <div class="todos" *ngIf="todos.length; else noTodos">
+    <app-todo-item
+      *ngFor="let todo of todos"
+      [todo]="todo"
+      [todos]="todos"
+      (onNewTodos)="onHandleComplete($event)"
+      class="item-container"
+    ></app-todo-item>
+  </div>
+  <ng-template #noTodos>
+    <p class="poppins-bold noTodos">No goals available to track.</p>
+  </ng-template>
+</div>

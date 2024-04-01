@@ -1,0 +1,54 @@
+.todo-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.todo-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: small;
+}
+.todo .description {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: left;
+}
+.todo-info {
+  font-size: small;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: flex-end;
+  vertical-align: baseline;
+}
+.todo-info .status {
+  text-transform: uppercase;
+}
+.status.active {
+  color: orange;
+}
+.status.completed {
+  color: green;
+}
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.todo-actions button {
+  border: 3px solid var(--dark-grey);
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: var(--rounded-xtra-small);
+  background-color: var(--dark-grey);
+  color: var(--white);
+}
