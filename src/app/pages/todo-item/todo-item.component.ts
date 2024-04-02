@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import type { Todo } from '../types';
+import { Todo, TodoFilterFlag } from '../../models/Todo';
 import { NgClass, NgIf } from '@angular/common';
-import { TodoService } from '../services/todo.service';
+import { TodoService } from '../../services/todo.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -13,7 +13,7 @@ import { TodoService } from '../services/todo.service';
 export class TodoItemComponent {
   @Input() todo?: Todo;
   @Input() todos?: Todo[];
-  @Output() onNewTodos = new EventEmitter<string>();
+  @Output() onNewTodos = new EventEmitter<TodoFilterFlag>();
 
   constructor(private todoService: TodoService) {}
 

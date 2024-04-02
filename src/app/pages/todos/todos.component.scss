@@ -7,6 +7,7 @@
   gap: 2rem;
   background-color: var(--white);
   border-radius: var(--rounded-small);
+  height: 100%;
 }
 .item-container {
   display: inline-flex;
@@ -43,13 +44,13 @@
   background-color: var(--white);
 }
 .input-actions .add-button {
+  text-transform: uppercase;
   border: 3px solid var(--dark-grey);
   min-width: 120px;
   height: 100%;
   display: grid;
   place-items: center;
   border-radius: var(--rounded-xtra-small);
-  background-color: var(--dark-grey);
   color: var(--white);
 }
 .filters {
@@ -59,6 +60,15 @@
   gap: 1rem;
   margin: 0 auto;
   width: 100%;
+}
+.filter-buttons button.all.active {
+  color: var(--white);
+}
+.active.active {
+  color: orange;
+}
+.completed.active {
+  color: var(--green);
 }
 .filter-buttons {
   display: inline-flex;
@@ -74,8 +84,6 @@
   display: grid;
   place-items: center;
   border-radius: var(--rounded-xtra-small);
-  background-color: var(--dark-grey);
-  color: var(--white);
 }
 .filter-heading {
   margin: 0;
@@ -87,7 +95,6 @@
   justify-content: flex-start;
   align-items: center;
   overflow: auto;
-  max-height: 40vh;
   width: 100%;
   padding: 0 1rem;
 }
@@ -95,4 +102,45 @@
   margin: 0 auto;
   padding: 0 1rem;
   text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+  .todos {
+    padding: 0rem;
+  }
+  .todo-container {
+    gap: 1rem;
+  }
+  .filters,
+  .input-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .filter-heading {
+    font-size: small;
+  }
+  .input-actions {
+    height: auto;
+  }
+  .input-actions #new-todo {
+    height: 50px;
+    font-size: x-small;
+  }
+  .input-actions #new-todo::placeholder {
+    font-size: x-small;
+  }
+  .input-actions .add-button,
+  .filter-buttons {
+    width: 100%;
+    font-size: x-small;
+    height: auto;
+  }
+  .filter-buttons button {
+    width: 100%;
+    font-size: x-small;
+  }
+  .input-header {
+    font-size: x-large;
+    line-height: 1;
+  }
 }

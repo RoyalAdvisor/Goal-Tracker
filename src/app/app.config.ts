@@ -4,6 +4,8 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './services/data.service';
+import { NgxsModule } from '@ngxs/store';
+import { TodoState } from './store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +15,8 @@ export const appConfig: ApplicationConfig = {
       HttpClientInMemoryWebApiModule.forRoot(DataService, {
         dataEncapsulation: false,
         delay: 300,
-      })
+      }),
+      NgxsModule.forRoot([TodoState])
     ),
   ],
 };

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import type { Todo } from '../types';
+import { Todo, TodoFilterFlag, TodoResponse } from '../models/Todo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { StorageService } from './storage.service';
@@ -18,9 +18,17 @@ export class TodoService {
   private options = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  private filterData(flag: string, data: Todo[]): Todo[] {
-    if (flag === 'all') return data;
-    else return data.filter((item) => item.status === flag);
+  private filterData(flag: TodoFilterFlag, data: Todo[]): TodoResponse {
+    if (flag === 'all') return { todos: data.reverse(), flag };
+    else {
+      const filteredTodos = data
+        .filter((item) => item.status === flag)
+        .reverse();
+      return {
+        todos: filteredTodos,
+        flag,
+      };
+    }
   }
 
   private errorHandler<T>(operation = 'operation', result?: T) {
@@ -30,9 +38,9 @@ export class TodoService {
     };
   }
 
-  getTodos(flag: string): Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.baseUrl).pipe(
-      map((data) => this.filterData(flag, data)),
+  getTodos(flag: TodoFilterFlag): Observable<TodoResponse | Todo[]> {
+    return this.http.get<TodoResponse | Todo[]>(this.baseUrl).pipe(
+      map((data) => this.filterData(flag, data as Todo[])),
       catchError(this.errorHandler<Todo[]>('Failed to fetch todos.', []))
     );
   }

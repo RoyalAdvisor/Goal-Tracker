@@ -29,7 +29,9 @@
         *ngFor="let filter of filters"
         type="button"
         class="poppins-bold"
-        (click)="filterTodos(filter)"
+        [class]="filter"
+        [class.active]="activeFlag === filter"
+        (click)="getAndFilterTodos(filter)"
       >
         {{ filter }}
       </button>
@@ -45,6 +47,8 @@
     ></app-todo-item>
   </div>
   <ng-template #noTodos>
-    <p class="poppins-bold noTodos">No goals available to track.</p>
+    <p class="poppins-bold noTodos">
+      No {{ activeFlag === "all" ? "" : activeFlag }} goals available to track.
+    </p>
   </ng-template>
 </div>

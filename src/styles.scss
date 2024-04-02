@@ -2,8 +2,13 @@
 :root {
   --dark-grey: #313638;
   --white: #f7fff7;
+  --green: #39ff14;
   --rounded-small: 10px;
   --rounded-xtra-small: 5px;
+  --bg-opacity: 0.5;
+}
+* {
+  box-sizing: border-box;
 }
 body {
   margin: 0;
@@ -19,6 +24,12 @@ body {
 }
 button {
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--dark-grey);
+  color: var(--white);
+}
+button:hover {
+  background-color: rgba(0, 0, 0, var(--bg-opacity));
 }
 // Fonts
 .poppins-light {
