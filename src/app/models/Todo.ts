@@ -1,5 +1,9 @@
 type TodoStatus = 'completed' | 'active';
 export type TodoFilterFlag = 'all' | 'active' | 'completed';
+export type TodoFilterFlagCounts = {
+  flag: TodoFilterFlag;
+  count: number;
+};
 
 export interface Todo {
   id: string;

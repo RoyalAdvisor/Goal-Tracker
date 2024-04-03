@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { DataService } from './services/data.service';
 import { NgxsModule } from '@ngxs/store';
-import { TodoState } from './store';
+import { TodoState } from './store/Todos';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       HttpClientInMemoryWebApiModule.forRoot(DataService, {
         dataEncapsulation: false,
-        delay: 300,
+        delay: 150,
       }),
       NgxsModule.forRoot([TodoState])
     ),

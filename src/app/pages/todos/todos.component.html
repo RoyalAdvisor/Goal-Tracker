@@ -8,6 +8,7 @@
         id="new-todo"
         #todoDescription
         class="poppins-bold"
+        type="text"
         placeholder="Type a goal you'd like to accomplish & hit enter"
         (keyup.enter)="
           addNewTodo(todoDescription.value); todoDescription.value = ''

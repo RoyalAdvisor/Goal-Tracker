@@ -3,6 +3,7 @@
   --dark-grey: #313638;
   --white: #f7fff7;
   --green: #39ff14;
+  --amber: #ffbf00;
   --rounded-small: 10px;
   --rounded-xtra-small: 5px;
   --bg-opacity: 0.5;
@@ -16,12 +17,18 @@ body {
   box-sizing: border-box;
   height: 100vh;
   background-color: var(--dark-grey);
-  overflow: hidden;
   color: var(--dark-grey);
   display: flex;
   justify-content: center;
   align-items: center;
 }
+@media screen and (max-width: 500px) {
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+}
+
 button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -50,7 +57,7 @@ button:hover {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {

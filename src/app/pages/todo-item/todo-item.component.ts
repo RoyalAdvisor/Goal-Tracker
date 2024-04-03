@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Todo, TodoFilterFlag } from '../../models/Todo';
 import { NgClass, NgIf } from '@angular/common';
-import { TodoService } from '../../services/todo.service';
+import { Todos } from '../../store/Todos';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-todo-item',
@@ -15,12 +16,10 @@ export class TodoItemComponent {
   @Input() todos?: Todo[];
   @Output() onNewTodos = new EventEmitter<TodoFilterFlag>();
 
-  constructor(private todoService: TodoService) {}
+  constructor(private store: Store) {}
 
   deleteTodo(todo: Todo): void {
-    const index = this.todos?.indexOf(todo) as number;
-    this.todos = this.todos?.splice(index, 1);
-    this.todoService.removeTodo(todo.id).subscribe();
+    this.store.dispatch(new Todos.RemoveTodoById(todo.id)).subscribe();
   }
 
   handleStatus(todo: Todo): void {
@@ -28,7 +27,7 @@ export class TodoItemComponent {
       ...todo,
       status: todo.status === 'active' ? 'completed' : 'active',
     };
-    this.todoService.updateTodo(updatedTodo).subscribe();
+    this.store.dispatch(new Todos.UpdateTodo(updatedTodo)).subscribe();
     this.onNewTodos.emit('all');
   }
 }

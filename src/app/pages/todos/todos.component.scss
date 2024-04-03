@@ -65,7 +65,7 @@
   color: var(--white);
 }
 .active.active {
-  color: orange;
+  color: var(--amber);
 }
 .completed.active {
   color: var(--green);
@@ -96,7 +96,6 @@
   align-items: center;
   overflow: auto;
   width: 100%;
-  padding: 0 1rem;
 }
 .noTodos {
   margin: 0 auto;
