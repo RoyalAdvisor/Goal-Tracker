@@ -3,8 +3,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 1rem;
-  gap: 2rem;
+  padding: 0.5rem;
+  gap: 1rem;
   background-color: var(--white);
   border-radius: var(--rounded-small);
   height: 100%;
@@ -135,6 +135,9 @@
   }
   .todo-container {
     gap: 1rem;
+  }
+  .input-container {
+    gap: 0.5rem;
   }
   .filters,
   .input-actions {
