@@ -14,26 +14,36 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  font-size: small;
 }
 .todo .description {
-  font-size: 1rem;
+  font-size: small;
   line-height: 1.5rem;
   text-align: left;
   word-wrap: break-word;
   text-wrap: pretty;
   width: 100%;
+  padding-left: 0.5rem;
 }
-
+.todo .created {
+  text-align: left;
+  width: 100%;
+  font-size: small;
+  border-width: 0 0 0 3px;
+  border-color: var(--dark-grey);
+  border-style: solid;
+  padding-left: 0.5rem;
+}
 .todo-info {
   font-size: small;
   display: flex;
   gap: 0.5rem;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-end;
   vertical-align: baseline;
+  padding-left: 0.5rem;
+  width: 100%;
 }
 .todo-info .status {
   text-transform: uppercase;
@@ -47,6 +57,8 @@
 .todo-actions {
   display: flex;
   gap: 0.5rem;
+  width: 100%;
+  justify-content: flex-end;
 }
 .todo-actions button {
   border: 3px solid var(--dark-grey);
@@ -54,7 +66,15 @@
   display: grid;
   place-items: center;
   border-radius: var(--rounded-xtra-small);
-  color: var(--white);
+}
+.todo-actions button.delete:hover {
+  color: red;
+}
+.todo-actions button.active:hover {
+  color: var(--green);
+}
+.todo-actions button.completed:hover {
+  color: var(--amber);
 }
 
 @media screen and (max-width: 500px) {
@@ -64,16 +84,19 @@
     align-items: flex-start;
     gap: 0.5rem;
   }
-  .todo .description {
-    font-size: small;
+  .todo .description,
+  .todo .created {
+    font-size: x-small;
+    line-height: 1rem;
   }
+
   .todo-info {
     width: 100%;
-    justify-content: space-between;
     font-size: x-small;
   }
   .todo-actions {
     width: 100%;
+    padding-left: 0.5rem;
   }
   .todo-actions button {
     font-size: x-small;

@@ -51,18 +51,28 @@
   display: grid;
   place-items: center;
   border-radius: var(--rounded-xtra-small);
-  color: var(--white);
 }
 .filters {
-  display: inline-flex;
+  display: flex;
   justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   gap: 1rem;
   margin: 0 auto;
   width: 100%;
 }
+.filter-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .filter-buttons button.all.active {
   color: var(--white);
+}
+.filter-buttons button.all.active:hover {
+  color: var(--dark-grey);
 }
 .active.active {
   color: var(--amber);
@@ -72,8 +82,9 @@
 }
 .filter-buttons {
   display: inline-flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  width: 100%;
   gap: 0.5rem;
 }
 .filter-buttons button {
@@ -84,9 +95,24 @@
   display: grid;
   place-items: center;
   border-radius: var(--rounded-xtra-small);
+  position: relative;
+}
+.filter-buttons button span {
+  position: absolute;
+  top: -1rem;
+  right: -0.5rem;
+  background-color: var(--white);
+  color: var(--dark-grey);
+  border-radius: 50%;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: small;
+  display: grid;
+  place-items: center;
 }
 .filter-heading {
   margin: 0;
+  text-transform: capitalize;
 }
 .todos {
   display: flex;
@@ -131,15 +157,25 @@
   .input-actions .add-button,
   .filter-buttons {
     width: 100%;
-    font-size: x-small;
+    font-size: small;
     height: auto;
   }
   .filter-buttons button {
     width: 100%;
-    font-size: x-small;
+    font-size: small;
+  }
+  .filter-buttons button span {
+    width: 0.8rem;
+    height: 0.8rem;
+    font-size: xx-small;
+    top: -0.7rem;
+    right: -0.4rem;
   }
   .input-header {
     font-size: x-large;
     line-height: 1;
+  }
+  .noTodos {
+    font-size: small;
   }
 }

@@ -8,6 +8,7 @@ import {
   TodoResponse,
 } from '../../models/Todo';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
+import { TodoService } from '../../services/todo.service';
 import { Select, Store } from '@ngxs/store';
 import { Todos, TodoState } from '../../store/Todos';
 import { Observable } from 'rxjs';
@@ -29,7 +30,7 @@ import { Observable } from 'rxjs';
 export class TodosComponent {
   @ViewChild('todoDescription') todoDescription: ElementRef | undefined;
   @Select(TodoState.selectTodos) todosWithFilter$!: Observable<TodoResponse>;
-  constructor(private store: Store) {}
+  constructor(private store: Store, private todoService: TodoService) {}
   private generateTodoId(length: number): string {
     const charset =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -40,40 +41,31 @@ export class TodosComponent {
     }
     return result;
   }
-  // private generateCounts(arr: Todo[]): TodoFilterFlagCounts[] {
-  //   const groupedCounts: TodoFilterFlagCounts[] = [];
-  //   const groupedTodos = arr.reduce((acc: { [key: string]: any }, curr) => {
-  //     const key = curr['status'];
-  //     acc[key] = (acc[key] || []).concat(curr);
-  //     return acc;
-  //   }, []);
-  //   Object.entries(groupedTodos).forEach(([key, value]) => {
-  //     groupedCounts.push({
-  //       flag: key as TodoFilterFlag,
-  //       count: value.length,
-  //     });
-  //   });
-  //   return groupedCounts;
-  // }
 
   todos: Todo[] = [];
-  // activeCounts: TodoFilterFlagCounts[] = [
-  //   { flag: 'all', count: 0 },
-  //   { flag: 'active', count: 0 },
-  //   { flag: 'completed', count: 0 },
-  // ];
-  filters: TodoFilterFlag[] = ['all', 'active', 'completed'];
+  activeCounts: TodoFilterFlagCounts[] = [
+    { flag: 'all', count: 0 },
+    { flag: 'active', count: 0 },
+    { flag: 'completed', count: 0 },
+  ];
   activeFlag: TodoFilterFlag = 'all';
+  totalCount: number = 0;
 
-  getAndFilterTodos(flag: TodoFilterFlag): void {
-    this.store.dispatch(new Todos.GetAllTodos(flag)).subscribe((response) => {
-      this.todos = response.todoResponse.todos;
+  filterTodos(flag: TodoFilterFlag): void {
+    this.todosWithFilter$.subscribe((response) => {
+      if (flag === 'all') {
+        this.todos = response.todos;
+        return;
+      }
+      this.todos = response.todos.filter((todo) => todo.status === flag);
     });
     this.activeFlag = flag;
   }
 
   onHandleComplete(flag: TodoFilterFlag): void {
-    this.getAndFilterTodos(flag);
+    this.store.dispatch(new Todos.GetAllTodos(flag)).subscribe((response) => {
+      this.todos = response.todoResponse.todos;
+    });
   }
 
   addNewTodo(description: string): void {
@@ -82,16 +74,21 @@ export class TodosComponent {
     const todo: Todo = {
       id: this.generateTodoId(10),
       description,
-      createdAt: new Date().toLocaleDateString('en-ZA'),
+      createdAt: new Date().toLocaleDateString('en-ZA', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
       status: 'active',
     };
     this.store.dispatch(new Todos.AddTodo(todo)).subscribe();
+    this.filterTodos(this.activeFlag);
   }
 
   ngOnInit(): void {
     this.todosWithFilter$.subscribe({
       next: (response) => {
-        if (!response.todos.length) {
+        if (!this.todos.length) {
           this.store
             .dispatch(new Todos.GetAllTodos(this.activeFlag))
             .subscribe(
@@ -100,7 +97,8 @@ export class TodosComponent {
           return;
         }
         this.todos = response.todos;
-        this.activeFlag = response.flag;
+        this.totalCount = this.todos.length;
+        this.activeCounts = this.todoService.countTodosByStatus(response.todos);
       },
     });
   }

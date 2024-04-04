@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Todo, TodoFilterFlag } from '../../models/Todo';
+import { Todo, TodoFilterFlag, TodoResponse } from '../../models/Todo';
 import { NgClass, NgIf } from '@angular/common';
-import { Todos } from '../../store/Todos';
-import { Store } from '@ngxs/store';
+import { TodoState, Todos } from '../../store/Todos';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-item',
@@ -13,8 +14,8 @@ import { Store } from '@ngxs/store';
 })
 export class TodoItemComponent {
   @Input() todo?: Todo;
-  @Input() todos?: Todo[];
   @Output() onNewTodos = new EventEmitter<TodoFilterFlag>();
+  @Select(TodoState.selectTodos) todosWithFilter$!: Observable<TodoResponse>;
 
   constructor(private store: Store) {}
 

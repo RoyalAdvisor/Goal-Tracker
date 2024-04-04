@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Todo, TodoFilterFlag, TodoResponse } from '../models/Todo';
+import {
+  Todo,
+  TodoFilterFlag,
+  TodoFilterFlagCounts,
+  TodoResponse,
+} from '../models/Todo';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { StorageService } from './storage.service';
@@ -36,6 +41,23 @@ export class TodoService {
       console.error(`${operation}`);
       return of(result as T);
     };
+  }
+
+  countTodosByStatus(todos: Todo[]): TodoFilterFlagCounts[] {
+    const counts: Record<TodoFilterFlag, number> = {
+      all: todos.length,
+      active: 0,
+      completed: 0,
+    };
+
+    todos.forEach((todo) => {
+      counts[todo.status]++;
+    });
+
+    return Object.entries(counts).map(([flag, count]) => ({
+      flag: flag as TodoFilterFlag,
+      count,
+    }));
   }
 
   getTodos(flag: TodoFilterFlag): Observable<TodoResponse | Todo[]> {

@@ -9,7 +9,7 @@
         #todoDescription
         class="poppins-bold"
         type="text"
-        placeholder="Type a goal you'd like to accomplish & hit enter"
+        placeholder="Type a goal & hit enter to start tracking"
         (keyup.enter)="
           addNewTodo(todoDescription.value); todoDescription.value = ''
         "
@@ -24,17 +24,23 @@
     </div>
   </div>
   <div class="filters">
-    <h4 class="poppins-bold filter-heading">Filters:</h4>
+    <div class="filter-info">
+      <h4 class="poppins-bold filter-heading">Filters:</h4>
+      <h4 *ngIf="totalCount > 0" class="poppins-bold filter-heading">
+        Goals: {{ totalCount }}
+      </h4>
+    </div>
     <div class="filter-buttons">
       <button
-        *ngFor="let filter of filters"
+        *ngFor="let count of activeCounts"
         type="button"
         class="poppins-bold"
-        [class]="filter"
-        [class.active]="activeFlag === filter"
-        (click)="getAndFilterTodos(filter)"
+        [class]="count.flag"
+        [class.active]="activeFlag === count.flag"
+        (click)="filterTodos(count.flag)"
       >
-        {{ filter }}
+        {{ count.flag }}
+        <span *ngIf="count.count > 0">{{ count.count }}</span>
       </button>
     </div>
   </div>
@@ -42,7 +48,6 @@
     <app-todo-item
       *ngFor="let todo of todos"
       [todo]="todo"
-      [todos]="todos"
       (onNewTodos)="onHandleComplete($event)"
       class="item-container"
     ></app-todo-item>

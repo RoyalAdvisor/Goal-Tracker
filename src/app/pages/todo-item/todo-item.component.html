@@ -1,22 +1,31 @@
 <div *ngIf="todo" class="todo-item">
   <div class="poppins-bold todo">
-    <p class="description">{{ todo.description }}</p>
-  </div>
-  <div class="todo-content">
     <div class="todo-info poppins-bold">
+      <span class="created">{{ todo.createdAt }}</span>
       <span
         [ngClass]="
           todo.status == 'active' ? 'status active' : 'status completed'
         "
         >{{ todo.status }}</span
       >
-      <span class="created">{{ todo.createdAt }}</span>
     </div>
+    <p class="description">{{ todo.description }}</p>
+  </div>
+  <div class="todo-content">
     <div class="todo-actions">
-      <button class="poppins-bold" (click)="handleStatus(todo)" type="button">
-        {{ todo.status == "active" ? "Mark Completed" : "Completed" }}
+      <button
+        class="poppins-bold"
+        (click)="handleStatus(todo)"
+        type="button"
+        [class]="todo.status"
+      >
+        {{ todo.status == "active" ? "Mark Completed" : "Mark Active" }}
       </button>
-      <button class="poppins-bold" (click)="deleteTodo(todo)" type="button">
+      <button
+        class="poppins-bold delete"
+        (click)="deleteTodo(todo)"
+        type="button"
+      >
         Delete
       </button>
     </div>
