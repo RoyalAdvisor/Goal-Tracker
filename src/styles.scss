@@ -22,18 +22,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-@media screen and (max-width: 500px) {
-  body {
-    height: 100dvh;
-    overflow: hidden;
-  }
-}
 
 button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
   background-color: var(--dark-grey);
   color: var(--white);
+  border: 3px solid var(--dark-grey);
+  border-radius: var(--rounded-xtra-small);
 }
 button:hover {
   background-color: rgba(0, 0, 0, var(--bg-opacity));
@@ -102,6 +98,10 @@ input[type="search"]:focus::-webkit-search-cancel-button {
 }
 
 @media screen and (max-width: 500px) {
+  body {
+    height: 100dvh;
+    overflow: hidden;
+  }
   ::-webkit-scrollbar {
     width: 6px;
   }

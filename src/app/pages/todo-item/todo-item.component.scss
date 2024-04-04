@@ -61,11 +61,9 @@
   justify-content: flex-end;
 }
 .todo-actions button {
-  border: 3px solid var(--dark-grey);
   height: 100%;
   display: grid;
   place-items: center;
-  border-radius: var(--rounded-xtra-small);
 }
 .todo-actions button.delete:hover {
   color: red;

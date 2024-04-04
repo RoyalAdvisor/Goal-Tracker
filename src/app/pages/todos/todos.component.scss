@@ -45,12 +45,10 @@
 }
 .input-actions .add-button {
   text-transform: uppercase;
-  border: 3px solid var(--dark-grey);
   min-width: 120px;
   height: 100%;
   display: grid;
   place-items: center;
-  border-radius: var(--rounded-xtra-small);
 }
 .filters {
   display: flex;
@@ -88,13 +86,11 @@
   gap: 0.5rem;
 }
 .filter-buttons button {
-  border: 3px solid var(--dark-grey);
   height: 100%;
   min-width: 100px;
   text-transform: uppercase;
   display: grid;
   place-items: center;
-  border-radius: var(--rounded-xtra-small);
   position: relative;
 }
 .filter-buttons button span {
