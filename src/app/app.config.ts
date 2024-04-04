@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       HttpClientInMemoryWebApiModule.forRoot(DataService, {
         dataEncapsulation: false,
-        delay: 150,
+        passThruUnknownUrl: true,
       }),
       NgxsModule.forRoot([TodoState])
     ),

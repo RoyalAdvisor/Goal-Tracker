@@ -9,6 +9,7 @@ import {
 } from '../../models/Todo';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
 import { TodoService } from '../../services/todo.service';
+import { QuotesService } from '../../services/quotes.service';
 import { Select, Store } from '@ngxs/store';
 import { Todos, TodoState } from '../../store/Todos';
 import { Observable } from 'rxjs';
@@ -30,7 +31,11 @@ import { Observable } from 'rxjs';
 export class TodosComponent {
   @ViewChild('todoDescription') todoDescription: ElementRef | undefined;
   @Select(TodoState.selectTodos) todosWithFilter$!: Observable<TodoResponse>;
-  constructor(private store: Store, private todoService: TodoService) {}
+  constructor(
+    private store: Store,
+    private todoService: TodoService,
+    private quotesService: QuotesService
+  ) {}
   private generateTodoId(length: number): string {
     const charset =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -50,6 +55,7 @@ export class TodosComponent {
   ];
   activeFlag: TodoFilterFlag = 'all';
   totalCount: number = 0;
+  quote = 'Inspiration loading...';
 
   filterTodos(flag: TodoFilterFlag): void {
     this.todosWithFilter$.subscribe((response) => {
@@ -100,6 +106,13 @@ export class TodosComponent {
         this.totalCount = this.todos.length;
         this.activeCounts = this.todoService.countTodosByStatus(response.todos);
       },
+    });
+    this.quotesService.getQuote().subscribe((response) => {
+      if (!response.length) {
+        this.quote = 'What would you like to accomplish today?';
+        return;
+      }
+      this.quote = `"${response.at(0).quote}"`;
     });
   }
 
