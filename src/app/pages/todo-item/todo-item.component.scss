@@ -65,14 +65,23 @@
   display: grid;
   place-items: center;
 }
-.todo-actions button.delete:hover {
+.todo-actions button.delete {
   color: red;
 }
+.todo-actions button.delete:hover {
+  color: var(--dark-grey);
+}
+.todo-actions button.active {
+  color: var(--amber);
+}
 .todo-actions button.active:hover {
+  color: var(--dark-grey);
+}
+.todo-actions button.completed {
   color: var(--green);
 }
 .todo-actions button.completed:hover {
-  color: var(--amber);
+  color: var(--dark-grey);
 }
 
 @media screen and (max-width: 500px) {
